@@ -1,8 +1,3 @@
-Vue.component('button1',{
-    template:'#result',
-    props:[]
-});
-
 new Vue({
     el: '#app',
     data: {
@@ -28,8 +23,6 @@ new Vue({
             this.bgdcolor = event.target.value;
         },
         safeFormat: function () {
-
-
             if (this.dataSaver.find(span => span.id === this.id) !== undefined) {
                 this.dataSaver[this.id].text = this.text;
                 this.dataSaver[this.id].fontSize = this.fontSize;
