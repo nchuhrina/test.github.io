@@ -44,22 +44,25 @@
     <div class="line">
         <p></p>
 
-        <br><br>
+        <template id="result">
         <p>File:</p>
 
             <div class='text' >
 
         <span v-for="ob in dataSaver"
               v-bind:style="{ 'color': ob.color, 'font-size': ob.fontSize, 'background-color': ob.bgdcolor, }"
-              v-html="ob.text">
+              v-html="ob.text"
+              @click="setToChange"
+              v-bind:id="ob.id">
 
     </span>
                 <span v-if="text"
                       v-bind:style="{'color': color, 'font-size': fontSize, 'background-color': bgdcolor, }">
                     {{text}}
                 </span>
-        </div>
+            </div></template>
     </div>
+
 </div>
 
 </body>
