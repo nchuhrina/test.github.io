@@ -3,41 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>Text Editor</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="script.js" defer></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
 <div id="app">
     <div class="line formated">
-        <label for="color">Text color:</label>
-        <input type="color" id="color"
-               v-bind:value="color"
-               v-on:input="setColor"
-        />
-        <br><br><br>
-        <label for="font">Font size:</label>
-        <select @change="setFontSize" id="font">
-            <option selected>--Choose font size--</option>
-            <option v-for="size in fontSizes"
-                    v-bind:value="size">{{size}}
-            </option>
-        </select>
+        <app-color
+                class="app-color"
+                txt-color="color"
+                @save-color="catchColor">
+            Text color:
+        </app-color>
+        <app-color
+                class="app-color"
+                txt-color="bgdcolor"
+                @save-color="catchBGcolor">
+            Background color:
+        </app-color>
+        <app-font
+                class="app-color"
+
+                @save-font="catchFont">
+        </app-font>
         <br>
-        <br>
-        <label for="bgdcolor">Background color:</label>
-        <input type="color" id="bgdcolor"
-               v-bind:value="bgdcolor"
-               v-on:input="setBgd"/>
-        <br><br>
         <button type="submit" @click="safeFormat">Set</button>
         <br><br><br>
         <label for="text">Enter your text:</label>
         <br>
         <textarea id="text" rows="10" cols="45"
                   placeholder="enter text....."
-                  v-on:input="setMessage"
+                  @input="setMessage"
                   v-model="text"
                   @keypress.13="eddBR"></textarea>
     </div>
@@ -46,23 +43,28 @@
 
         <p>File:</p>
 
-            <div class='text' >
-
+        <div class='text'>
+            <div :id="input">
         <span v-for="ob in dataSaver"
-              v-bind:style="{ 'color': ob.color, 'font-size': ob.fontSize, 'background-color': ob.bgdcolor, }"
-              v-html="ob.text"
-              @click="setToChange"
-              v-bind:id="ob.id">
 
-    </span>
-                <span v-if="text"
-                      v-bind:style="{'color': color, 'font-size': fontSize, 'background-color': bgdcolor, }">
+              :style="{ 'color': ob.color, 'font-size': ob.fontsize, 'background-color': ob.bgdcolor, }"
+              v-html="ob.text"
+              @mouseup="setToChange"
+              :id="ob.id">
+
+    </span></div>
+            <span v-if="text"
+                  id="notedit"
+                  :style="{'color': color, 'font-size': fontsize, 'background-color': bgdcolor, }">
                     {{text}}
                 </span>
-            </div>
+        </div>
     </div>
 
 </div>
 
+<script>
+    notedit.onselectstart = () => false;
+</script>
 </body>
 </html>
